@@ -1,0 +1,37 @@
+language: c
+
+os:
+  - linux
+  - osx
+
+before_script:
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+
+sudo: required
+
+dist: trusty # Ubuntu 14.04.
+
+compiler:
+  - gcc
+
+install: 
+  - ./.install-$TRAVIS_OS_NAME-deps.sh
+  - ./install-icc.sh
+
+addons:
+  apt:
+    # Travis whitelist of packages.
+    # https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-trusty
+    packages:
+      - cmake
+      - gcc
+      - gfortran
+
+script: 
+  - export PETSC_DIR=$PWD/petsc; export PETSC_ARCH=${TRAVIS_OS_NAME}-gnu
+  - cd src/pflotran; make pflotran; make test
+
+notifications:
+  email:
+    on_success: always
+    on_failure: always

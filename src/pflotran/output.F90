@@ -423,6 +423,12 @@ subroutine OutputFileRead(realization,output_option,waypoint_list,block_name)
 
 !......................
       case('VARIABLES')
+        select case (option%iflowmode)
+          case(FLASH2_MODE,MPH_MODE)
+            option%io_buffer = 'A variable list cannot be specified for &
+                  &the CO2 flow modes. Variables are determined internally.'
+            call printErrMsg(option)
+        end select
         select case(trim(block_name))
           case('SNAPSHOT_FILE')           
             call OutputVariableRead(input,option, &
@@ -918,7 +924,7 @@ subroutine OutputVariableRead(input,option,output_variable_list)
         output_variable%iformat = 1 ! integer
         call OutputVariableAddToList(output_variable_list,output_variable)
       case ('VOLUME')
-        units = ''
+        units = 'm^3'
         name = 'Volume'
         output_variable => OutputVariableCreate(name,OUTPUT_GENERIC, &
                                                 units,VOLUME)

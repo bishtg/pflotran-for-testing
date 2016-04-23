@@ -113,6 +113,8 @@ subroutine SubsurfaceSimInputRecord(this)
   use Strata_module
   use Material_module
   use Characteristic_Curves_module
+  use Patch_module
+  use Condition_module
   
   implicit none
   
@@ -166,7 +168,15 @@ subroutine SubsurfaceSimInputRecord(this)
 
   ! print chemistry & reactive transport information
   call ReactionInputRecord(this%realization%reaction)
-
+  
+  ! print coupler information (ICs, BCs, SSs)
+  call PatchCouplerInputRecord(this%realization%patch)
+  
+  ! print flow and trans condition information
+  call FlowCondInputRecord(this%realization%flow_conditions, &
+                           this%realization%option)
+  call TranCondInputRecord(this%realization%transport_conditions, &
+                           this%realization%option)
 
 end subroutine SubsurfaceSimInputRecord
 

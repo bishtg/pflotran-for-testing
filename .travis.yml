@@ -31,7 +31,7 @@ env:
   - PETSC_WITH_HDF5=0
 
 script: 
-  - ./pflotran-build-test.sh
+  - ./.pflotran-build-test.sh
 
 notifications:
   email:

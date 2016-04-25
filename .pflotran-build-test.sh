@@ -17,5 +17,5 @@ if [ ${PETSC_WITH_HDF5} == "1" ]; then
 else
   make nonhdf5_test
 fi
-cat regression_tests/*.testlog
+cat *.testlog
 

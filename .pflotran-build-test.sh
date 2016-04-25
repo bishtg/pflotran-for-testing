@@ -13,7 +13,7 @@ make utest
 cd ../../regression_tests
 
 if [ ${PETSC_WITH_HDF5} = "1" ]; then
-  make tests
+  make test
 else
   make nonhdf5_test
 fi

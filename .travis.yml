@@ -26,10 +26,12 @@ addons:
       - gcc
       - gfortran
 
+env:
+  - PETSC_WITH_HDF5=1
+  - PETSC_WITH_HDF5=0
+
 script: 
-  - export PETSC_DIR=$PWD/petsc; export PETSC_ARCH=${TRAVIS_OS_NAME}-gnu
-  - cd src/pflotran; make pflotran; make test
-  - cat ../../regression_tests/*.testlog
+  - ./pflotran-build-test.sh
 
 notifications:
   email:

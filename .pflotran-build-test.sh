@@ -12,7 +12,7 @@ make utest
 # Run regression tests
 cd ../../regression_tests
 
-if [ ${PETSC_WITH_HDF5} == 1 ]; then
+if [ ${PETSC_WITH_HDF5} == "1" ]; then
   make tests
 else
   make nonhdf5_test
